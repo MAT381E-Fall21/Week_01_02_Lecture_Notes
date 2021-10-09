@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MAT381E-Week 1: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gül İnan" />
+    <meta name="date" content="2021-10-09" />
+    <script src="intro_rmarkdown_files/header-attrs-2.11/header-attrs.js"></script>
+    <link href="intro_rmarkdown_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: left, middle, my-title, title-slide
+
+# MAT381E-Week 1: Introduction to Data Science
+### Gül İnan
+### Department of Mathematics<br/>Istanbul Technical University
+### October 9, 2021
+
+---
+
+
+
+
+
+
+
+class: center, middle
+
+# Introduction to R Markdown
+
+&lt;img src="https://bookdown.org/yihui/rmarkdown/images/hex-rmarkdown.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+---
+#  What is R Markdown?
+
+-  In the world of **reproducible research**, we want other researchers to easily reproduce what we did in our analysis so that they can be certain that we analyzed our data properly. 
+- `R Markdown` allows us to **create documents** that serve as a neat record of our analysis and it presents `R` code alongside its output (graphs, tables, etc.) with external text, equations, data tables, links, and images to explain it.
+- `R Markdown` is **a reproducible and dynamic notebook**.
+
+---
+class: center, middle
+
+
+&lt;iframe width="669" height="502" src="https://player.vimeo.com/video/178485416" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen data-external="1"&gt;&lt;/iframe&gt;
+
+[R Markdown video](https://player.vimeo.com/video/178485416).
+
+---
+
+- `R Markdown` actually uses [Markdown](https://daringfireball.net/projects/markdown/) syntax.
+
+- [Markdown](https://daringfireball.net/projects/markdown/)  is a very simple **`markup` language** which provides methods for creating documents with headers, texts, images, links etc. from plain text files, while keeping the original plain text file easy to read. 
+
+- `Markdown` documents can be **converted to many other file types** like .html or .pdf to display the headers, texts, images etc..
+
+- In a similar fashion, `R Markdown` is a language that allows you to embed `R` code directly into a document to present its outputs (graphs, tables, etc.) accompanied by text, equations, data tables, figures, links, and images via [Markdown](https://daringfireball.net/projects/markdown/) syntax.
+
+- An `R Markdown` file has the `.Rmd` file suffix. Once it is created, an `.Rmd` file can then be **rendered into** a PDF (.pdf), Microsoft Word (.doc), HTML (html), or GitHub (.md) documents, and a range of other formats.  
+
+---
+
+# Download R Markdown
+
+- We first need the `rmarkdown package` on [CRAN](https://cran.r-project.org/web/packages/rmarkdown/index.html)
+to get `R Markdown` be working in `RStudio`.
+
+--
+
+- Wee need to run the following commands in `RStudio`:
+
+
+
+```r
+install.packages("rmarkdown")
+library(rmarkdown)
+```
+
+---
+# Create an R Markdown file
+
+.pull-left[
+- To **create a new R Markdown file** (`.Rmd`) in `RStudio`, go to menu bar across the top of the screen 
+and select `File -&gt; New File -&gt; R Markdown`.
+]
+
+--
+
+.pull-right[
+&lt;img src="images/rmarkdown1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 35%;
+}
+.pull-right {
+  float: right;
+  width: 65%;
+}
+&lt;/style&gt;
+    
+.pull-left[
+.left[ - Select the document type you need. 
+- For now we **will focus on** a `.html` document, which can be easily converted to other file types later.]
+]
+
+--
+
+.pull-right[
+&lt;img src="images/rmarkdown2.png" width="85%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+- Give it an **informative title** such as "Deneme" for this trial.
+- Accept the default Author or edit if you wish.
+
+---
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 25%;
+}
+.pull-right {
+  float: right;
+  width: 75%;
+}
+&lt;/style&gt;
+    
+.pull-left[
+- Go to menu bar across the top of the screen 
+and select `File -&gt; Save as` and **save this document as deneme** to a reasonable filename and location. 
+- Click on “Knit HTML” button at the top of `RStudio` script pane or click `File &gt; Knit Document` at menu bar. 
+See what appears:
+]
+
+--
+
+.pull-right[
+&lt;img src="images/rmarkdown4.png" width="200%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+- Also look at the file browser. You should see the `R Markdown` document, i.e. `deneme.Rmd` and the resulting HTML `deneme.html`.
+---
+
+# Content structure
+
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 25%;
+}
+.pull-right {
+  float: right;
+  width: 75%;
+}
+&lt;/style&gt;
+
+.pull-left[
+- The newly created `.Rmd` file can have **three** types of text in general:
+
+   - YAML metadata
+   - Text
+   - `R` Code chunks
+]
+
+--
+
+.pull-right[
+&lt;img src="images/rmarkdown3.png" width="150%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# YAML metadata
+
+- The first is the **YAML section** containing configurations for the file. 
+- This section looks like this: 
+
+```
+---
+title: "Deneme"
+author: "Gul Inan"
+date: "10/9/2021"
+output: html_document
+---
+```
+
+- Feel free to change the title and author names and see what results in your rendered report. 
+---
+
+- You can stamp the **current time** on your report by doing so:
+
+
+
+```r
+---
+title: "Deneme"
+author: "Gül İnan"
+*date: "`r format(Sys.Date(), '%B %e, %Y')`"
+output: html_document
+---
+#more at https://statistics.berkeley.edu/computing/faqs/dates-and-times-r  
+```
+
+--
+
+&lt;img src="images/rmarkdown5.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 70%;
+}
+.pull-right {
+  float: right;
+  width: 30%;
+}
+&lt;/style&gt;
+# Text
+
+- Here we present a few commonly used features in `R Markdown`. 
+- Feel free to try them out yourself. 
+
+.pull-left[
+- Code:
+
+
+```markdown
+Plain text.
+End a line with two spaces to start a new paragraph. 
+ *italics* and _italics_  
+ **bold** and __bold__  
+ $R^2$   
+~~strikethrough~~  
+inline equation: $A = \pi*r^{2}$
+End a line with two spaces to start a new paragraph. 
+```
+]
+
+--
+
+.pull-right[
+- Output:
+
+Plain text.
+End a line with two spaces to start a new paragraph. 
+*italics* and _italics_  
+**bold** and __bold__  
+`\(R^2\)`   
+~~strikethrough~~  
+inline equation: `\(A = \pi*r^{2}\)`
+]
+
+--
+
+---
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 50%;
+}
+.pull-right {
+  float: right;
+  width: 50%;
+}
+&lt;/style&gt;
+
+# Headers
+
+.pull-left[
+- Code:
+
+```{markdown
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+```
+]
+
+--
+.pull-right[
+- Output:
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+#### Header 4
+
+]
+
+--
+
+- Note that head sizes and colors will be default ones in your document.
+---
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 50%;
+}
+.pull-right {
+  float: right;
+  width: 50%;
+}
+&lt;/style&gt;
+
+# Unordered Lists
+
+.pull-left[
+- Code:
+
+```{markdown
+
+- Fruits
+    - apples
+    - bananas
+    - grapes
+- Vegetables
+    - carrots
+    - broccoli
+```
+]
+
+--
+.pull-right[
+Output:
+
+- Fruits
+  - apples
+  - bananas
+- Vegetables
+  - carrots
+  - broccoli
+]
+---
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 50%;
+}
+.pull-right {
+  float: right;
+  width: 50%;
+}
+&lt;/style&gt;
+
+# Ordered Lists
+
+.pull-left[
+- Code:
+
+```{markdown
+scary (ordered list)
+
+1. ocelots
+1. bears
+1. tigers
+
+Not scary (ordered list)
+
+1. elephants
+2. monkeys
+3. rabbits
+
+```
+]
+
+--
+.pull-right[
+Output:
+
+scary 
+
+1. ocelots
+1. bears
+1. tigers
+
+not scary 
+
+1. elephants
+2. monkeys
+3. rabbits
+]
+
+
+---
+# Link
+
+- Code:
+
+
+```markdown
+This is a link to [GitHub](https://github.com/).
+```
+
+--
+
+- Output: 
+
+This is a link to [GitHub](https://github.com/).
+
+---
+# Image
+
+- Code:
+
+
+```markdown
+![Surprise](https://cdnuploads.aa.com.tr/uploads/Contents/2019/04/25/thumbs_b_c_fcbe8545d3b85ab8d3ad9f6adff42d49.jpg)
+```
+
+--
+
+- Output: 
+
+![Surprise](https://cdnuploads.aa.com.tr/uploads/Contents/2019/04/25/thumbs_b_c_fcbe8545d3b85ab8d3ad9f6adff42d49.jpg)
+
+---
+# R Code
+
+- `R` code can be **directly embedded into** an `.Rmd` file and will be executed during rendering. 
+- The **result of the code** would be **printed** into resulting report. 
+
+## Inline R code in a sentence
+
+- Surround code with back ticks and r such as ` `r `  and end it with ` ` `.  
+- `R` replaces inline code with its results.
+
+- Code:
+
+
+```markdown
+Two plus two equals `r 2 + 2`.
+```
+
+--
+
+- Output:  
+
+  Two plus two equals 4.
+
+---
+
+## R code chunks
+
+- Start a `R` code chunk with  ` ```{r} `  and end it with ` ``` `.
+
+- Code:
+
+```{markdown
+
+```r
+x &lt;- mean(rnorm(100))
+x
+```
+```    
+
+--
+
+- Output:
+
+
+```r
+x &lt;- mean(rnorm(100))
+x
+```
+
+```
+#&gt; [1] -0.04544329
+```
+--
+
+- It prints both `R` code and result.
+
+---
+
+## Display options for R code chunks
+
+- There are a large number of chunk options in **knitr** documented at https://yihui.name/knitr/options. 
+- Most common two of them are below:
+
+  - `eval`: Whether to evaluate a code chunk (if you do not want to evaluate the R code then ` ```{r, eval=FALSE} `  and end it with ` ``` `).
+
+  - `echo`: Whether to echo (print) the source code in the output document (if you do not want to print the output then` ```{r, echo=FALSE} `  and end it with ` ``` `).
+   
+---
+# Figures
+
+- Code:
+
+`````{markdown
+
+```r
+plot(cars)
+```
+`````
+---
+- Output:
+
+
+```r
+plot(cars)
+```
+
+![](intro_rmarkdown_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+
+---
+
+# Figures
+
+- **Figures** that is not generated from R code can be imported by the `knitr::include_graphics()` function, which provides more control over the attributes of the image than the Markdown syntax of `![alt text or image title](path/to/image)` (e.g., you can specify the image width via out.width).
+
+- Code:
+
+`````{markdown
+
+```r
+knitr::include_graphics("https://cdnuploads.aa.com.tr/uploads/Contents/2019/04/25/thumbs_b_c_fcbe8545d3b85ab8d3ad9f6adff42d49.jpg")
+```
+`````
+---
+- Output:
+
+
+```r
+knitr::include_graphics("https://cdnuploads.aa.com.tr/uploads/Contents/2019/04/25/thumbs_b_c_fcbe8545d3b85ab8d3ad9f6adff42d49.jpg")
+```
+
+&lt;img src="https://cdnuploads.aa.com.tr/uploads/Contents/2019/04/25/thumbs_b_c_fcbe8545d3b85ab8d3ad9f6adff42d49.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# A short summary to `knitr options`
+
+- [Default-knitr-options](https://www.r-bloggers.com/2021/03/default-knitr-options-and-hooks/).
+
+---
+# Creating .pdf files in R Markdown
+
+- `R Studio` uses `LaTeX` to make `.pdf` documents.
+
+- If you are using `Windows`, go to the [MikTeX](https://miktex.org/download) and download the appropriate “Complete MikTeX Installer” for your system, either 32-bit or 64-bit.
+
+- If you are using a `Mac`, go to the [MacTeX](https://tug.org/mactex/mactex-download.html) and download the “MacTeX.pkg”.
+
+- Running these installers will install a version of `LaTeX` onto your system, which `R` will then be able to call on to compile the `.pdf`.
+
+- To compile a `.pdf` document instead of a `.html` document, change `output: from html_document` to `pdf_document`.
+---
+# Final remarks
+
+- In a nutshell:
+
+&lt;img src="images/rmarkdown6.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+--
+
+- More on `Markdown syntax`:
+  - [Markdown](https://www.markdownguide.org/basic-syntax/).
+  
+- More on `R Markdown`:
+  - [Djnavarro](https://slides.djnavarro.net/starting-rmarkdown/#95),
+  - [Garrick](https://www.garrickadenbuie.com/talk/toronto-data-workshop/),
+  - [The R Markdown Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf), and
+  - [The R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). 
+  
+---
+
+# Attributions
+- All images used in this slide are taken from the web.
+- Some part of this lecture note is developed through following sources:
+   - [The R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/), 
+   - [STAT540](https://github.com/STAT540-UBC/STAT540-UBC.github.io/blob/master//seminars/seminars_winter_2021/seminar2a/sm2a_intro_to_markdown.Rmd), and
+   - [Our Coding Club](https://ourcodingclub.github.io/tutorials/rmarkdown/).
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

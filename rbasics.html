@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>MAT381E-Week 1: Introduction to Data Science</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Gül İnan" />
+    <meta name="date" content="2021-10-09" />
+    <script src="rbasics_files/header-attrs-2.11/header-attrs.js"></script>
+    <link href="rbasics_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: left, middle, my-title, title-slide
+
+# MAT381E-Week 1: Introduction to Data Science
+### Gül İnan
+### Department of Mathematics<br/>Istanbul Technical University
+### October 9, 2021
+
+---
+
+
+
+
+
+
+class: center, middle
+
+# R Basics
+
+---
+
+
+# Knowing your way around RStudio
+
+- The `RStudio` IDE a free open-source product (under the
+[Affero General Public License (AGPL) v3](https://www.gnu.org/licenses/agpl-3.0.en.html)).
+
+- We will use `RStudio` as a graphical front-end to `R`, so that we can access our scripts and data, find help, and preview plots and outputs all in one place.
+
+- To function correctly, `RStudio` needs `R` and therefore **both** need to be installed on your computer. 
+
+   - You can download the recent version of `R` from [CRAN](https://cran.r-project.org/). Select the link appropriate for your operating system.
+
+   - Then, download  the recent version of `RStudio` from the [RStudio](https://www.rstudio.com/) (select the free open source desktop version).
+
+   - If you are using a Mac, in addition to `R` and `RStudio`, you need to download [XQuartz](https://www.xquartz.org/).
+
+- Visit [R/RStudio set up video](https://tutorials.shinyapps.io/00-setup/). 
+
+---
+&lt;style type="text/css"&gt;
+.pull-left {
+  float: left;
+  width: 50%;
+}
+.pull-right {
+  float: right;
+  width: 50%;
+}
+&lt;/style&gt;
+
+- `RStudio` is divided into 4 "Panes" (small windows): 
+   - The **Source** for your scripts and documents  (top-left, in the default layout), 
+   - The R **Console** (bottom-left), 
+   - Your **Environment/History** (top-right), and 
+   - Your **Files/Plots/Packages/Help/Viewer** (bottom-right). 
+
+---
+class: middle, center
+
+&lt;div class="figure"&gt;
+&lt;img src="images/ide.png" alt="RStudio Interface" width="70%" /&gt;
+&lt;p class="caption"&gt;RStudio Interface&lt;/p&gt;
+&lt;/div&gt;
+
+---
+# How to start an R project?
+
+- It is **always good practice** to keep a set of related data and analyses in **a single folder**. 
+
+  * Start `RStudio`.
+  * Under the `File` menu, click on `New project`, choose `New directory`, then
+  `New project`.
+  * As directory (or folder) name enter `r-intro` and create project as sub-directory of your desktop folder: `~/Desktop`.
+  * Click on `Create project`.
+  * Under the `Files` tab on the right of the screen, click on `New Folder` and
+  create a folder named `data` within your newly created working directory (e.g., `~/r-intro/data`).
+  * On the main menu go to `Files` &gt; `New File` &gt; `R Script` to open a new file and
+  * Save the empty script as `r-intro-script.R` in your working directory.
+
+---
+- A quick side note: If you are interested in file management/data science work flow, I suggest you to read the following article:
+
+       http://www.rebeccabarter.com/blog/2019-03-07_reproducible_pipeline/.
+
+
+---
+- If you need to check which working directory `R` thinks it is in:
+
+
+```r
+getwd()
+[1] "/Users/gulinan/Desktop/r-intro"
+```
+
+- To set a different working directory in `R` go to the `Console` and type:
+
+
+```r
+setwd("Path/To/Your/Newworkingdirectory")
+```
+
+---
+# RStudio Console and Command Prompt
+
+- The console pane in `RStudio` is the place where **commands written** in the `R`
+language can be **typed** and **executed** immediately by the computer.
+- It is also where
+the **results will be shown** for commands that have been executed. 
+- You can type
+commands directly into the console and press &lt;kbd&gt;`Enter`&lt;/kbd&gt; to execute those commands, but they will be **forgotten when you close the session**.
+- If `R` is ready to accept commands, the `R` console by default shows a `&gt;` prompt.
+- If it
+receives a command, `R` will try to execute it, and when
+ready, will **show the results** and come back with a new `&gt;` prompt to wait for new
+commands.
+- If `R` is **still waiting** for you to enter more data because it isn't complete yet,
+the console will show a `+` prompt.
+
+---
+# RStudio Script Editor
+- Because we want to keep our code and workflow properly, it is better to type
+the commands in the **script editor**.
+- We can create a new `R` script as follows: `File &gt; New File &gt; R Script` and then **save the script**.
+- We can now write **commands** directly in the `R Script`.
+
+
+```r
+getwd()
+[1] "/Users/gulinan/Desktop/r-intro"
+```
+
+- The command on the current line in the
+script (indicated by the cursor) or all of the commands in the **currently
+selected text** will be sent to the console and executed when you press
+&lt;kbd&gt;`Ctrl`&lt;/kbd&gt; + &lt;kbd&gt;`Enter`&lt;/kbd&gt; (&lt;kbd&gt;`Cmd`&lt;/kbd&gt; +
+&lt;kbd&gt;`Enter`&lt;/kbd&gt; on Mac). 
+
+---
+#  Creating objects in R
+- To **create an `R` object**, we need to give it a name followed by the
+assignment operator `&lt;-` and the value we want to give it:
+
+
+```r
+my_age &lt;- 25
+```
+
+- `&lt;-` is the **assignment operator** and as name suggests it assigns values on the right to objects on
+the left. 
+- You can also use `=`
+for assignments, but not in every context (there are
+[slight](http://blog.revolutionanalytics.com/2008/12/use-equals-or-arrow-for-assignment.html) [differences](https://web.archive.org/web/20130610005305/https://stat.ethz.ch/pipermail/r-help/2009-March/191462.html)).
+
+
+- Just a note: What are known as `objects` in `R` are known as `variables` in many other
+programming languages.  Depending on the context, `object` and `variable` can
+have drastically different meanings.  However, in this lesson, the two words are
+used synonymously. 
+
+---
+# How to name objects in R?
+- Object names must start with a letter or a dot (if you start a name with a dot, the second character cannot be a number).
+- Names should contain only letters, numbers, underscore characters (_), and dots (.).
+- Objects can be given any name such as `x`, `current_temperature`, or
+`subject_id`. 
+- Object names should be **explicit** and **not too long**. 
+- R is **case sensitive**
+(e.g., `weight_kg` is different from `Weight_kg`). 
+- There are some names that
+cannot be used because they are the names of fundamental functions in `R` (e.g., `if`, `else`, `for`, see
+[here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for a complete list). 
+- In general, even if it is allowed, it's **best to not use other function names** (e.g., `c`, `T`, `mean`, `data`, `df`, `weights`). If in doubt, check the help to see if the name is already in use. 
+- It's also best to
+avoid dots (`.`) within a variable name as in `my.dataset`. There are many
+functions in R with dots in their names for historical reasons, but because dots have a special meaning in `R` (for methods) and other programming languages, it is best to avoid them. 
+
+---
+- When assigning a value to an object, `R` does not print anything. 
+- We can force `R` to print the value by **using parentheses** or by **typing the object name**:
+
+
+```r
+weight_kg &lt;- 55    # doesn't print anything
+```
+
+
+```r
+(weight_kg &lt;- 55)  # but putting parenthesis around the call prints the value of `weight_kg`
+```
+
+```
+#&gt; [1] 55
+```
+
+```r
+weight_kg          # and so does typing the name of the object
+```
+
+```
+#&gt; [1] 55
+```
+- Now that `R` has `weight_kg` in memory, we can do arithmetic with it. 
+- For instance, we may want to convert this weight into pounds (weight in pounds is 2.2 times the weight in kg):
+
+
+```r
+weight_kg * 2.2 
+```
+
+```
+#&gt; [1] 121
+```
+
+---
+# Comments
+
+&lt;img src="images/commenting.png" width="80%" height="100%" /&gt;
+
+--
+
+- The **comment character** in `R` is hashtag (`#`).
+- Anything to the right of a `#` in a script
+will be ignored by `R`. 
+- If you only want to comment
+out one line, you can put the cursor at any location of that line (i.e. no need 
+to select the whole line), then press &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;Shift&lt;/kbd&gt; + 
+&lt;kbd&gt;C&lt;/kbd&gt;.
+- `RStudio` makes it easy to comment or uncomment a paragraph: after selecting the
+lines you  want to comment, press at the same time on your keyboard
+&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;. 
+
+---
+
+# Modes 
+- Objects in `R` are classified according to their basic structure which is called as **modes**. 
+- Table below shows the **most common ones**. 
+
+
+|Name      |Example                 |
+|:---------|:-----------------------|
+|numeric   |`1`, `3`, `48`          |
+|character |`Steve'`, `'a'`, `'78'` |
+|logical   |`TRUE`, `FALSE`         |
+-  For characters we can either use `" "` or `' '`. 
+
+---
+# Data types
+
+- `R` has a number of different **data types**. 
+-  Table below shows the ones you're most likely to come across (taken from [this source](https://www.statmethods.net/input/datatypes.html)): 
+
+
+|Name       |Description                                                                   |
+|:----------|:-----------------------------------------------------------------------------|
+|vector     |list of values with of the same variable mode                                 |
+|matrix     |2D data structure                                                             |
+|array      |same as matrix for higher dimensional data                                    |
+|data frame |matrices in that different columns can have different modes                   |
+|list       |flexible type that can contain different variable types with diffrent lenghts |
+---
+# Vectors 
+- A vector is **composed by a series of values** where all of the values are the **same type of data**.
+- We build vectors using the **concatenate function** `c()`.  
+
+
+```r
+weight_g &lt;- c(21, 34, 39, 54, 55)  # make a vector
+weight_g
+```
+
+```
+#&gt; [1] 21 34 39 54 55
+```
+
+- You can use the `c()` function to add other elements to your vector:
+
+
+```r
+weight_g &lt;- c(weight_g, 90) # add to the end of the vector
+weight_g
+```
+
+```
+#&gt; [1] 21 34 39 54 55 90
+```
+
+```r
+weight_g &lt;- c(30, weight_g) # add to the beginning of the vector
+weight_g
+```
+
+```
+#&gt; [1] 30 21 34 39 54 55 90
+```
+
+
+---
+- The function `str()` provides an overview of the internal **str**ucture of an `R` object and its
+elements. 
+- It is a useful function when working with large and complex
+objects:
+
+
+```r
+str(weight_g)
+```
+
+```
+#&gt;  num [1:7] 30 21 34 39 54 55 90
+```
+
+- The function `class()` indicates the class (the type of element) of an object:
+
+
+```r
+class(weight_g)
+```
+
+```
+#&gt; [1] "numeric"
+```
+
+- Note: `class` is a property assigned to an object that determines how **functions** operate with it.
+
+---
+- A vector can also contain **characters**:
+
+
+```r
+animals &lt;- c("mouse", "rat", "dog", "frog")
+class(animals)
+```
+
+```
+#&gt; [1] "character"
+```
+- A vector can also contain **logical values** (the boolean data type).
+
+
+```r
+has_tail &lt;- c(TRUE, TRUE, TRUE, FALSE)
+class(has_tail)
+```
+
+```
+#&gt; [1] "logical"
+```
+
+
+---
+
+
+&lt;img src="images/index02.png" width="80%" height="100%" /&gt;
+
+--
+
+- `R` **indices start at 1**. 
+-  Programming languages like `Fortran`, `MATLAB`, `Julia`, and `R` start
+counting at 1, because that's what human beings typically do. 
+-  Languages in the `C` family (including `C++`, `Java`, `Perl`, and `Python`) **count from 0** because that's simpler for computers to do.
+---
+
+# Subsetting vectors
+
+- If we want to **extract one or several values from a vector**, we must provide one
+or several indices in square brackets ([]). 
+
+
+```r
+animals[2]
+```
+
+```
+#&gt; [1] "rat"
+```
+
+```r
+animals[c(3, 2)]
+```
+
+```
+#&gt; [1] "dog" "rat"
+```
+
+- The **colon operator** `:` is a special operator that **creates numeric vectors of integers** in increasing
+or decreasing order, test `1:10` and `10:1` for instance. 
+- We can use this to select a sequence, like this: 
+
+
+```r
+animals[2:4]
+```
+
+```
+#&gt; [1] "rat"  "dog"  "frog"
+```
+
+---
+
+- You can **exclude** elements of a vector using the "`-`" sign:
+
+
+```r
+animals[-2]
+```
+
+```
+#&gt; [1] "mouse" "dog"   "frog"
+```
+
+```r
+animals[-c(1:3)]
+```
+
+```
+#&gt; [1] "frog"
+```
+
+- We can also repeat the indices to create an object with more elements than the
+original one:
+
+
+```r
+more_animals &lt;- animals[c(1, 2, 3, 2, 1, 4)]
+more_animals
+```
+
+```
+#&gt; [1] "mouse" "rat"   "dog"   "rat"   "mouse" "frog"
+```
+---
+# Comparison Operators
+
+- Table below shows the **comparison operators** that result in logical outputs. 
+
+&lt;img src="images/comparison.png" width="80%" /&gt;
+
+- The double equal sign `==` is a test for
+numerical equality between the left and right hand sides, and should not be
+confused with the single `=` sign, which performs variable assignment (similar
+to `&lt;-`).
+
+---
+# Boolean Operators
+
+- Table below shows the **Boolean operators** that are used to narrow or broaden search outputs. 
+
+&lt;img src="images/boolean.png" width="80%" /&gt;
+
+---
+
+# Conditional subsetting
+
+- Another common way of subsetting is by using a logical vector. 
+- `TRUE` will
+select the element with the same index, while `FALSE` will not.
+
+
+```r
+animals
+```
+
+```
+#&gt; [1] "mouse" "rat"   "dog"   "frog"
+```
+
+```r
+logical_index &lt;- c(TRUE, TRUE, TRUE, FALSE)
+animals[logical_index]
+```
+
+```
+#&gt; [1] "mouse" "rat"   "dog"
+```
+
+- Typically, these logical vectors are not typed out by hand, but are the output of
+other functions or logical tests. 
+
+---
+- We can select only the weights above 50:
+
+```r
+weight_g
+```
+
+```
+#&gt; [1] 30 21 34 39 54 55 90
+```
+
+```r
+weight_g &gt; 50    # will return logicals with TRUE for the indices that meet the condition
+```
+
+```
+#&gt; [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+```
+
+```r
+## so we can use this to select only the values above 50
+weight_g[weight_g &gt; 50]
+```
+
+```
+#&gt; [1] 54 55 90
+```
+
+- We can combine multiple tests using `&amp;` (both conditions are true, AND) or `|`
+(at least one of the conditions is true, OR):
+
+
+```r
+weight_g[weight_g &lt; 30 | weight_g &gt; 50]
+```
+
+```
+#&gt; [1] 21 54 55 90
+```
+
+```r
+weight_g[weight_g &gt;= 30 &amp; weight_g &lt;= 90]
+```
+
+```
+#&gt; [1] 30 34 39 54 55 90
+```
+
+---
+- The **(in) operator** `%in%` is very useful for searching **certain strings in a vector**.
+
+
+```r
+x &lt;- c(1, 2, 3)
+2 %in% x  #is 2 in x vector
+```
+
+```
+#&gt; [1] TRUE
+```
+
+```r
+c(3, 4) %in% x #is elements of c(3, 4) available in x vector
+```
+
+```
+#&gt; [1]  TRUE FALSE
+```
+
+```r
+animals
+```
+
+```
+#&gt; [1] "mouse" "rat"   "dog"   "frog"
+```
+
+```r
+animals %in% c("rat", "cat", "dog") #is elements of animals vector available in that vector
+```
+
+```
+#&gt; [1] FALSE  TRUE  TRUE FALSE
+```
+
+---
+# Some often used functions 
+
+
+|Name          |Description                                               |
+|:-------------|:---------------------------------------------------------|
+|`length()`    |length of an object                                       |
+|`dim()`       |dimensions of an object (e.g. number of rows and columns) |
+|`seq()`       |generate a sequence of numbers                            |
+|`rep()`       |repeat something n times                                  |
+|`max()`       |maximum                                                   |
+|`min()`       |minimum                                                   |
+|`which.max()` |index of the maximum                                      |
+|`which.min()` |index of the maximum                                      |
+|`mean()`      |mean                                                      |
+|`median()`    |median                                                    |
+|`sum()`       |sum                                                       |
+|`var()`       |variance                                                  |
+|`sd()`        |standard deviation                                        |
+
+---
+# Missing data
+
+-  **Missing data** is represented as `NA`.
+-  When doing operations on numbers, most functions will return `NA` if the data
+you are working with include missing values. 
+-  We can add the argument `na.rm = TRUE` to calculate the result **while ignoring
+the missing values**.
+
+
+```r
+heights &lt;- c(2, 4, 4, NA, 6)
+max(heights)
+```
+
+```
+#&gt; [1] NA
+```
+
+```r
+sum(heights)
+```
+
+```
+#&gt; [1] NA
+```
+
+```r
+max(heights, na.rm = TRUE)
+```
+
+```
+#&gt; [1] 6
+```
+
+```r
+sum(heights, na.rm = TRUE)
+```
+
+```
+#&gt; [1] 16
+```
+
+---
+- If the data include missing values, we may want to become familiar with the
+functions `is.na()`, `na.omit()`, `complete.cases()`. 
+
+
+```r
+# Extract elements which are not missing values.
+heights
+```
+
+```
+#&gt; [1]  2  4  4 NA  6
+```
+
+```r
+!is.na(heights)
+```
+
+```
+#&gt; [1]  TRUE  TRUE  TRUE FALSE  TRUE
+```
+
+```r
+heights[!is.na(heights)]
+```
+
+```
+#&gt; [1] 2 4 4 6
+```
+
+---
+
+```r
+# Extract elements which are not missing values.
+na.omit(heights)
+```
+
+```
+#&gt; [1] 2 4 4 6
+#&gt; attr(,"na.action")
+#&gt; [1] 4
+#&gt; attr(,"class")
+#&gt; [1] "omit"
+```
+
+```r
+# Extract elements which are complete cases.
+heights[complete.cases(heights)]
+```
+
+```
+#&gt; [1] 2 4 4 6
+```
+
+
+---
+# Matrix 
+- If we arrange data elements of a vector in a **two-dimensional rectangular layout**, then we have a **matrix**. 
+- To construct a matrix, we use a function conveniently called `matrix()`.
+
+
+```r
+y &lt;- matrix(data = c(1:20), nrow = 5, ncol = 4) # generates 5 x 4 numeric matrix
+y
+```
+
+```
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    1    6   11   16
+#&gt; [2,]    2    7   12   17
+#&gt; [3,]    3    8   13   18
+#&gt; [4,]    4    9   14   19
+#&gt; [5,]    5   10   15   20
+```
+
+- We can subset a matrix with [row `,` column]:
+
+
+```r
+y[,4]       # 4th column of matrix
+```
+
+```
+#&gt; [1] 16 17 18 19 20
+```
+
+```r
+y[3,]       # 3rd row of matrix
+```
+
+```
+#&gt; [1]  3  8 13 18
+```
+
+---
+
+```r
+y[-1, ] # a matrix which excludes the first row
+```
+
+```
+#&gt;      [,1] [,2] [,3] [,4]
+#&gt; [1,]    2    7   12   17
+#&gt; [2,]    3    8   13   18
+#&gt; [3,]    4    9   14   19
+#&gt; [4,]    5   10   15   20
+```
+
+```r
+y[2:4,1:3]  # rows 2,3,4 of columns 1,2,3
+```
+
+```
+#&gt;      [,1] [,2] [,3]
+#&gt; [1,]    2    7   12
+#&gt; [2,]    3    8   13
+#&gt; [3,]    4    9   14
+```
+
+- Note how we use an **empty placeholder** to indicate that we want to **select all the values** in a row or column, and `-` to indicate that we want to **remove** something.
+
+---
+# Array 
+
+- Arrays work the same was as matrices with data of **more than two dimensions**. 
+
+---
+# Data frame
+- Data frames in `R`, are  matrix type data types which can have elements of any type, but they have to **all be of the same length**.
+- A data frame is the most common way of storing tabular data in `R` and something you will likely deal with a lot. 
+- As a first approximation, which holds true, probably in the most cases, you can really think of it as a table or a spreadsheet.  
+- We use `data.frame()` function to construct a data frame.
+
+
+```r
+mydf &lt;- data.frame("ID" = c(1:4),
+                   "Color" = c("red", "white", "red", NA),
+                   "Passed" = c(TRUE,TRUE,TRUE,FALSE),
+                   "Weight" = c(99, 54, 85, 70),
+                   "Height" = c(1.78, 1.67, 1.82, 1.59))
+mydf
+```
+
+```
+#&gt;   ID Color Passed Weight Height
+#&gt; 1  1   red   TRUE     99   1.78
+#&gt; 2  2 white   TRUE     54   1.67
+#&gt; 3  3   red   TRUE     85   1.82
+#&gt; 4  4  &lt;NA&gt;  FALSE     70   1.59
+```
+---
+- We can access the elements of a data frame as in matrix:
+
+
+```r
+mydf[1, 2]   # a single element using numbers
+```
+
+```
+#&gt; [1] "red"
+```
+
+```r
+mydf[, 1]    # first column in the data frame (as a vector)
+```
+
+```
+#&gt; [1] 1 2 3 4
+```
+
+```r
+mydf[3, ]    # the 3rd row (as a data.frame)
+```
+
+```
+#&gt;   ID Color Passed Weight Height
+#&gt; 3  3   red   TRUE     85   1.82
+```
+
+```r
+mydf[, -1]   # the whole data frame, excluding the first column
+```
+
+```
+#&gt;   Color Passed Weight Height
+#&gt; 1   red   TRUE     99   1.78
+#&gt; 2 white   TRUE     54   1.67
+#&gt; 3   red   TRUE     85   1.82
+#&gt; 4  &lt;NA&gt;  FALSE     70   1.59
+```
+---
+- As well as using numeric values to subset a `data.frame` (or `matrix`), columns
+can be accessed by name:
+
+
+```r
+mydf[, "ID"]  # all IDs
+```
+
+```
+#&gt; [1] 1 2 3 4
+```
+
+```r
+*mydf$ID    #all IDs
+```
+
+```
+#&gt; [1] 1 2 3 4
+```
+
+```r
+mydf$Color[2] # color of the second one
+```
+
+```
+#&gt; [1] "white"
+```
+
+---
+# Some often used functions 
+
+
+|Name         |Description                        |
+|:------------|:----------------------------------|
+|`dim()`      |returns dimensions of   the object |
+|`nrow()`     |returns the number of rows         |
+|`ncol()`     |returns the number of columns      |
+|`head()`     |shows the first 6 rows             |
+|`tail()`     |shows the last 6 rows              |
+|`colnames()` |returns the number of columns      |
+|`rownames()` |returns the number of rows         |
+|`str()`      |structure of the object            |
+|`summary()`  |summary statistics for each column |
+
+---
+- Here is a list of
+functions to get a sense of the content/structure of the data. 
+- Size:
+
+
+```r
+dim(mydf)  #returns a vector with the number of rows in the first element,
+```
+
+```
+#&gt; [1] 4 5
+```
+
+```r
+            #and the number of columns as the second element (the **dimensions of
+            #the object)
+nrow(mydf)  #returns the number of rows
+```
+
+```
+#&gt; [1] 4
+```
+
+```r
+ncol(mydf)  #returns the number of columns
+```
+
+```
+#&gt; [1] 5
+```
+---
+- Content:
+
+```r
+head(mydf)  #shows the first 6 rows
+```
+
+```
+#&gt;   ID Color Passed Weight Height
+#&gt; 1  1   red   TRUE     99   1.78
+#&gt; 2  2 white   TRUE     54   1.67
+#&gt; 3  3   red   TRUE     85   1.82
+#&gt; 4  4  &lt;NA&gt;  FALSE     70   1.59
+```
+
+```r
+tail(mydf) #shows the last 6 rows
+```
+
+```
+#&gt;   ID Color Passed Weight Height
+#&gt; 1  1   red   TRUE     99   1.78
+#&gt; 2  2 white   TRUE     54   1.67
+#&gt; 3  3   red   TRUE     85   1.82
+#&gt; 4  4  &lt;NA&gt;  FALSE     70   1.59
+```
+---
+- Names:
+
+```r
+colnames(mydf)  #returns the column names
+```
+
+```
+#&gt; [1] "ID"     "Color"  "Passed" "Weight" "Height"
+```
+
+```r
+rownames(mydf)  #returns the row names
+```
+
+```
+#&gt; [1] "1" "2" "3" "4"
+```
+---
+- Summary:
+
+```r
+str(mydf)  #structure of the object and information about the class, length and
+```
+
+```
+#&gt; 'data.frame':	4 obs. of  5 variables:
+#&gt;  $ ID    : int  1 2 3 4
+#&gt;  $ Color : chr  "red" "white" "red" NA
+#&gt;  $ Passed: logi  TRUE TRUE TRUE FALSE
+#&gt;  $ Weight: num  99 54 85 70
+#&gt;  $ Height: num  1.78 1.67 1.82 1.59
+```
+
+```r
+	        # content of  each column
+summary(mydf) #summary statistics for each column
+```
+
+```
+#&gt;        ID          Color             Passed            Weight    
+#&gt;  Min.   :1.00   Length:4           Mode :logical   Min.   :54.0  
+#&gt;  1st Qu.:1.75   Class :character   FALSE:1         1st Qu.:66.0  
+#&gt;  Median :2.50   Mode  :character   TRUE :3         Median :77.5  
+#&gt;  Mean   :2.50                                      Mean   :77.0  
+#&gt;  3rd Qu.:3.25                                      3rd Qu.:88.5  
+#&gt;  Max.   :4.00                                      Max.   :99.0  
+#&gt;      Height     
+#&gt;  Min.   :1.590  
+#&gt;  1st Qu.:1.650  
+#&gt;  Median :1.725  
+#&gt;  Mean   :1.715  
+#&gt;  3rd Qu.:1.790  
+#&gt;  Max.   :1.820
+```
+
+- Note: most of these functions are "generic", they can be used on other types of
+objects besides `data.frame`.
+
+---
+# Some other used functions 
+
+
+|name         |description                                                    |
+|:------------|:--------------------------------------------------------------|
+|`glimpse()`  |data is shown in a transposed way with columns as rows         |
+|`distinct()` |shows all the distinct values for a character or factor column |
+|`count()`    |shows a count of all the different distinct values in a column |
+---
+# List
+- Lists can have elements of any type with **different lengths**. 
+- We use the `list()` function to construct lists:
+
+
+```r
+myl &lt;- list("school"="ITU", "a_vector"=animals, "age"=5.3) # example of a list with 3 components
+myl
+```
+
+```
+#&gt; $school
+#&gt; [1] "ITU"
+#&gt; 
+#&gt; $a_vector
+#&gt; [1] "mouse" "rat"   "dog"   "frog" 
+#&gt; 
+#&gt; $age
+#&gt; [1] 5.3
+```
+---
+
+```r
+myl[["school"]] # component named id in list
+```
+
+```
+#&gt; [1] "ITU"
+```
+
+```r
+myl[[2]] # 2nd component of the list
+```
+
+```
+#&gt; [1] "mouse" "rat"   "dog"   "frog"
+```
+
+```r
+myl[[2]][1]  # 1st component of the 2nd component of the list
+```
+
+```
+#&gt; [1] "mouse"
+```
+---
+
+# Extending R base functionality
+- `R` comes with a **base system** and **some contributed core packages**. This is what you just downloaded. 
+- The functionality of `R` can be significantly extended by using **additional contributed packages**. 
+- Those packages typically contain commands (functions) for more specialized tasks. 
+- They can also contain example datasets. 
+
+---
+# Installing additional packages
+- To install additional packages there are two main options:
+
+  - We can use the `RStudio` interface like this:
+
+&lt;img src="images/installpckg1.png" width="20%" /&gt;&lt;img src="images/installpckg2.png" width="20%" /&gt;
+---
+
+ - We can install from the `R` console like this:
+
+
+```r
+# to install a package called "lubridate", for example: (more on this later)
+install.packages("lubridate", dependencies = TRUE)
+```
+
+### Make use of the installed packages
+- In order to **actually use commands** from the installed packages we also  need to **load** the installed packages. 
+
+
+```r
+library(lubridate)
+```
+or
+
+```r
+require(lubridate)
+```
+
+- The difference between the two is that `library` will result in an error, if the library does not exist, whereas `require` will result in a warning.
+
+---
+# Seeking help
+-  One of the most **immediate ways to get help** is to use the `RStudio` help interface:
+
+&lt;img src="images/rstudiohelp.png" width="30%" /&gt;
+
+- In the default configuration this panel by default can be found at the lower right hand panel of `RStudio`. 
+- As seen in the screenshot, by typing the word "Mean", `RStudio` tries to also give a number of suggestions that you might be interested in. The description is then shown in the display window.
+
+---
+- If you need help with a specific function, let's say `barplot()`, you can type:
+
+```r
+?barplot
+```
+
+- on `R console`.
+
+- If you just need to remind yourself of the names of the arguments, you can use:
+
+```r
+args(lm)
+```
+
+- If you are looking for a function to do a particular task, you can use the
+`help.search()` function, which is called by the double question mark `??`.
+However, this only looks through the installed packages for help pages with a
+match to your search request
+
+```r
+??kruskal
+```
+- If you can't find what you are looking for, you can use
+the [rdocumentation.org](http://www.rdocumentation.org) website that searches
+through the help files across all packages available.
+
+
+---
+background-image: url('images/google.png')
+background-size: 80%
+---
+
+- More:
+  - [R Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/10/r-cheat-sheet-3.pdf)
+  - [RStudio Interface Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf).
+
+---
+# Attributions
+
+- All images used in this slide are taken from the web.
+- This lecture note is mainly developed through following sources:
+   - [Cengel](https://github.com/cengel/R-intro/), 
+   - [Our Coding Club](https://ourcodingclub.github.io/tutorials/intro-to-r/), and
+   - [Duke Stat](https://www2.stat.duke.edu/courses/Fall19/sta199.001/slides/lec-slides/01-meet-toolkit.html#1).
+  
+---
+# Appendix
+
+
+&lt;img src="images/vector.png" width="80%" /&gt;
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": false
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
