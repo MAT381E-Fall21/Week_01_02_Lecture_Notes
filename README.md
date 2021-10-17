@@ -1,5 +1,5 @@
 
-#### Week_1_Lecture-Notes: Introduction to Data Science, R/R Studio, R Markdown
+#### Week_01_02_Lecture-Notes: Introduction to Data Science, R/R Studio, R Markdown
 
 There are four `.Rmd/html` files to follow:
  - `intro_ds.Rmd/intro_ds.html`,
